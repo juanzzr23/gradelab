@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d12">
+<title>GradeLab — Tu progreso académico</title>
+<style>
+:root{--bg:#0b0d12;--panel:#121620;--panel2:#181e2a;--line:#252d3b;--text:#f2f5fb;--muted:#8c96a8;--accent:#8b7cff;--green:#45d6a0;--red:#ff6b7a;--yellow:#f5c66a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 20% -10%,#242044 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1120px;margin:auto;padding:28px 22px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#a89cff,#6654df);display:grid;place-items:center;font-weight:900;color:white;box-shadow:0 8px 28px #7867ff40}.brand h1{font-size:21px;letter-spacing:-.7px;margin:0}.brand p{margin:0;color:var(--muted);font-size:12px}.tag{border:1px solid var(--line);color:#bcb4ff;background:#17152a;padding:7px 11px;border-radius:99px;font-size:12px}
+.hero{margin-bottom:25px}.eyebrow{color:#a99fff;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:1.6px}.hero h2{font-size:clamp(27px,5vw,40px);letter-spacing:-1.5px;line-height:1.1;margin:8px 0}.hero p{color:var(--muted);margin:0;max-width:600px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:24px 0}.stat,.panel,.course{background:linear-gradient(145deg,#151a25,#10141d);border:1px solid var(--line);border-radius:17px}.stat{padding:17px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:25px;letter-spacing:-.8px}.layout{display:grid;grid-template-columns:330px 1fr;gap:17px;align-items:start}.panel{padding:19px}.panel h3{margin:0 0 14px;font-size:16px}.field{display:block;margin:12px 0}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field input,.field select,.grade-input{width:100%;background:#0c1018;color:var(--text);border:1px solid #30394a;border-radius:10px;padding:10px 11px;outline:none}.field input:focus,.field select:focus,.grade-input:focus{border-color:var(--accent)}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;color:white;background:var(--accent)}.btn:hover{filter:brightness(1.1)}.btn.secondary{background:#242b39;color:#dce2ee;border:1px solid #343d4e}.btn.ghost{background:transparent;color:var(--muted);padding:7px 9px}.btn.danger{background:#351b25;color:#ff9ba5}.full{width:100%;margin-top:7px}.hint{font-size:11px;color:var(--muted);margin-top:10px}
+.course-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.course-title{font-size:18px;font-weight:800}.course-sub{font-size:12px;color:var(--muted)}.course{padding:18px;margin-bottom:13px}.course-top{display:flex;justify-content:space-between;gap:12px}.score{font-size:28px;font-weight:850;letter-spacing:-1px}.score.good{color:var(--green)}.score.low{color:var(--yellow)}.progress{height:6px;background:#252c39;border-radius:9px;overflow:hidden;margin:12px 0}.progress i{display:block;height:100%;background:linear-gradient(90deg,#7162ef,#a79cff);border-radius:9px}.course-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
+.eval-list{margin-top:16px;border-top:1px solid var(--line);padding-top:9px}.eval-head{display:grid;grid-template-columns:minmax(100px,1fr) 65px 65px 24px;gap:8px;padding:0 0 5px;color:var(--muted);font-size:11px}.eval{display:grid;grid-template-columns:minmax(100px,1fr) 65px 65px 24px;gap:8px;align-items:center;padding:7px 0}.eval-name{font-size:13px}.eval-weight{color:var(--muted);font-size:11px}.grade-input{padding:8px;text-align:center}.eval button{color:var(--muted);background:none;border:0;font-size:17px}.course-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.final-status{margin:14px 0 4px;padding:15px 16px;border-radius:13px;border:1px solid var(--line);background:#0c111a}.final-status strong{display:block;font-size:17px;margin-bottom:3px}.final-status p{margin:0;font-size:13px;color:var(--muted)}.final-status.won{border-color:#286d59;background:#10251f}.final-status.won strong{color:var(--green)}.final-status.lost{border-color:#713743;background:#28151c}.final-status.lost strong{color:var(--red)}.simulator{margin-top:15px;background:#0c111a;border:1px solid #293346;border-radius:13px;padding:14px}.sim-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.sim-head b{font-size:13px}.sim-result{font-size:20px;font-weight:850}.simulator p{font-size:11px;color:var(--muted);margin:5px 0 10px}.sim-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.sim-grid label{font-size:11px;color:var(--muted)}.sim-grid input:focus{outline:1px solid var(--accent);border-color:var(--accent)}.sim-warning{color:var(--yellow)!important;font-weight:700}.sim-grid input{display:block;width:100%;margin-top:4px;background:#151c28;border:1px solid #30394a;border-radius:8px;padding:8px;color:white}.empty{padding:35px 15px;text-align:center;color:var(--muted);border:1px dashed #30394a;border-radius:14px}.empty b{display:block;color:var(--text);margin-bottom:5px}.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.section-title h3{margin:0}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#20283a;border:1px solid #3a465d;padding:10px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:21px}.app{padding:20px 14px 45px}}
+@media(max-width:420px){.eval-head{grid-template-columns:minmax(85px,1fr) 57px 57px 20px;gap:5px}.eval{grid-template-columns:minmax(85px,1fr) 57px 57px 20px;gap:5px}.eval-name{font-size:12px}.grade-input{padding:7px 3px}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo">GL</div><div><h1>GradeLab</h1><p>Tu progreso, bajo control.</p></div></div>
+  <span class="tag">STUDENT EDITION</span>
+</header>
+<section class="hero">
+  <div class="eyebrow">Panel académico</div>
+  <h2>Que las notas no te cojan<br>por sorpresa.</h2>
+  <p>Registra tus evaluaciones, calcula tu definitiva y descubre qué necesitas para alcanzar tu meta.</p>
+</section>
+<section class="stats">
+  <div class="stat"><span>Materias registradas</span><strong id="statCourses">0</strong></div>
+  <div class="stat"><span>Notas registradas</span><strong id="statDone">0</strong></div>
+  <div class="stat"><span>Promedio proyectado</span><strong id="statAvg">—</strong></div>
+</section>
+<div class="layout">
+  <aside class="panel">
+    <h3>＋ Nueva materia</h3>
+    <form id="courseForm">
+      <div class="field"><label for="courseName">Nombre de la materia</label><input id="courseName" placeholder="Ej. Cálculo diferencial" required maxlength="45"></div>
+      <p class="hint">La nota mínima para aprobar está fijada en 3,0. Después podrás agregar cada actividad con su nombre y porcentaje.</p>
+      <button class="btn full" type="submit">Crear materia</button>
+    </form>
+    <p class="hint">Agrega parciales, seguimientos, talleres, quices o cualquier otra actividad. Tú defines el nombre, el porcentaje y la nota.</p>
+    <div style="border-top:1px solid var(--line);margin:18px 0 12px"></div>
+    <button class="btn secondary full" id="exportBtn">↓ Exportar mis materias</button>
+    <label class="btn secondary full" style="display:block;text-align:center;margin-top:8px" for="importFile">↑ Importar archivo de GradeLab</label>
+    <input id="importFile" type="file" accept="application/json,.json" hidden>
+    <p class="hint">Tus datos se guardan en este navegador. Exporta un archivo para llevarlos a otro dispositivo o compartirlos.</p>
+  </aside>
+  <main>
+    <div class="section-title"><h3>Mis materias</h3><span class="course-sub" id="courseCount">0 materias</span></div>
+    <div id="courses"></div>
+  </main>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='gradelab_courses_v1';
+let courses=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch{return []}}
+function save(){localStorage.setItem(KEY,JSON.stringify(courses));render()}
+function uid(){return Math.random().toString(36).slice(2,10)}
+function fmt(n){return Number(n).toFixed(2).replace('.',',')}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1900)}
+function newCourse(name){return {id:uid(),name,target:3,evals:[]}}
+document.getElementById('courseForm').addEventListener('submit',e=>{
+ e.preventDefault();const name=document.getElementById('courseName').value.trim();
+ if(!name)return;
+ courses.push(newCourse(name));e.target.reset();save();toast('Materia creada');
+});
+function calc(c){return c.evals.reduce((s,e)=>s+(e.grade===null?0:e.grade*e.weight/100),0)}
+function completed(c){return c.evals.reduce((s,e)=>s+(e.grade===null?0:e.weight),0)}
+function remaining(c){return 100-completed(c)}
+function scenarios(c){
+ const left=c.evals.filter(e=>e.grade===null),w=left.reduce((s,e)=>s+e.weight,0),need=(c.target-calc(c))*100;
+ if(!left.length)return 'No quedan evaluaciones pendientes.';
+ if(need<=0)return 'Ya alcanzaste tu nota objetivo.';
+ if(w===0)return 'No hay porcentaje pendiente: revisa los pesos de las evaluaciones.';
+ const avg=need/w;
+ if(avg>5)return `Necesitarías un promedio de ${fmt(avg)} en lo pendiente. No es posible con notas máximas de 5,0.`;
+ return `Necesitas un promedio ponderado de ${fmt(avg)} en las evaluaciones pendientes.`;
+}
+function combinationRows(c,target){
+ const left=c.evals.filter(e=>e.grade===null);
+ const totalWeight=c.evals.reduce((s,e)=>s+e.weight,0);
+ if(Math.abs(totalWeight-100)>0.01){
+  const difference=100-totalWeight;
+  const message=difference>0
+   ? `Tus actividades suman ${fmt(totalWeight)}%. Te falta completar ${fmt(difference)}%. Agrega otra actividad o aumenta los porcentajes hasta llegar al 100%.`
+   : `Tus actividades suman ${fmt(totalWeight)}%, es decir, superan el 100% por ${fmt(Math.abs(difference))}%. Ajusta los porcentajes para continuar.`;
+  return `<p class="hint" style="color:var(--yellow)">${message}</p>`;
+ }
+ if(!left.length)return '<p class="hint">Ya registraste todas las notas y los porcentajes suman 100%.</p>';
+ const leftWeight=left.reduce((s,e)=>s+e.weight,0);
+ const current=calc(c),needed=target-current;
+ if(needed<=0)return `<p class="hint" style="color:var(--green)">Con las notas que ya tienes, alcanzaste el objetivo de ${fmt(target)}. ¡Vas muy bien!</p>`;
+ if(leftWeight<=0)return '<p class="hint">Asigna porcentajes a las notas pendientes.</p>';
+ const maxPossible=current+leftWeight*5/100;
+ if(maxPossible+1e-9<target)return `<p class="hint" style="color:var(--red)">Aunque saques 5,0 en todas las actividades pendientes, no alcanzarías ${fmt(target)}.</p>`;
+ const seen=new Set(),rows=[];
+ function add(arr){
+   const contribution=arr.reduce((sum,v,i)=>sum+v*left[i].weight/100,0);
+   if(current+contribution+1e-8<target)return;
+   const key=arr.map(v=>v.toFixed(2)).join('|');
+   if(seen.has(key))return;seen.add(key);
+   rows.push({arr,avg:arr.reduce((sum,v,i)=>sum+v*left[i].weight/100,0)/(leftWeight/100),final:current+contribution});
+ }
+ const requiredAverage=needed/(leftWeight/100);
+ for(let grade=Math.max(0,Math.ceil(requiredAverage*2)/2);grade<=5;grade+=0.5)add(left.map(()=>grade));
+ for(let i=0;i<left.length;i++){
+   for(let chosen=0;chosen<=5;chosen+=0.5){
+     const restWeight=leftWeight-left[i].weight;
+     const restNeed=needed-chosen*left[i].weight/100;
+     const restGrade=restWeight<=0?0:Math.max(0,Math.ceil((restNeed/(restWeight/100))*2-1e-9)/2);
+     if(restGrade<=5)add(left.map((_,j)=>j===i?chosen:restGrade));
+   }
+ }
+ rows.sort((a,b)=>a.avg-b.avg);
+ const chosenRows=rows.slice(0,12);
+ if(!chosenRows.length)return '<p class="hint">No se encontraron combinaciones posibles para ese objetivo.</p>';
+ return `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:8px"><thead><tr>${left.map(e=>`<th style="text-align:center;color:var(--muted);padding:7px 4px;border-bottom:1px solid var(--line)">${escapeHtml(e.name)}</th>`).join('')}<th style="text-align:right;color:var(--muted);padding:7px 4px;border-bottom:1px solid var(--line)">Final</th></tr></thead><tbody>${chosenRows.map(r=>`<tr>${r.arr.map(v=>`<td style="text-align:center;padding:7px 4px;border-bottom:1px solid var(--line)">${fmt(v)}</td>`).join('')}<td style="text-align:right;padding:7px 4px;border-bottom:1px solid var(--line);color:var(--green);font-weight:800">${fmt(r.final)}</td></tr>`).join('')}</tbody></table></div><p class="hint">Combinaciones calculadas en saltos de 0,5 para alcanzar ${fmt(target)} o más.</p>`;
+}
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+
+function render(){
+ const root=document.getElementById('courses');root.innerHTML='';
+ let done=0,weighted=0,weight=0;
+ courses.forEach(c=>{
+  const score=calc(c),progress=completed(c),left=remaining(c);done+=c.evals.filter(e=>e.grade!==null).length;
+  weighted+=score;weight+=progress;
+  const totalWeight=c.evals.reduce((sum,e)=>sum+e.weight,0);
+  const hasDefinitive=c.evals.length>0&&c.evals.every(e=>e.grade!==null)&&Math.abs(totalWeight-100)<0.01;
+  const card=document.createElement('article');card.className='course';
+  const head=document.createElement('div');head.className='course-top';
+  const title=document.createElement('div');title.innerHTML=`<div class="course-title"></div><div class="course-sub"></div>`;title.querySelector('.course-title').textContent=c.name;title.querySelector('.course-sub').textContent=`Mínimo para aprobar: 3,0 · ${c.evals.length} actividades`;
+  const scoreBox=document.createElement('div');scoreBox.style.textAlign='right';scoreBox.innerHTML=`<div class="score ${hasDefinitive?(score>=3?'good':'low'):'low'}">${fmt(score)}</div><div class="course-sub">${hasDefinitive?'Definitiva':'Acumulado'}</div>`;
+  head.append(title,scoreBox);card.append(head);
+  const bar=document.createElement('div');bar.className='progress';bar.innerHTML=`<i style="width:${Math.min(progress,100)}%"></i>`;card.append(bar);
+  const meta=document.createElement('div');meta.className='course-meta';meta.innerHTML=`<span>${fmt(progress)}% evaluado</span><span>${fmt(left)}% pendiente</span>`;card.append(meta);
+  if(hasDefinitive){
+   const status=document.createElement('div');status.className='final-status '+(score>=3?'won':'lost');
+   const heading=document.createElement('strong');heading.textContent=score>=3?'¡Ganaste! Materia aprobada':'Perdiste. Materia no aprobada';
+   const detail=document.createElement('p');detail.textContent=score>=3?`Tu nota definitiva es ${fmt(score)}. ¡Felicitaciones!`:`Tu nota definitiva es ${fmt(score)}. No alcanzaste el mínimo de 3,0.`;
+   status.append(heading,detail);card.append(status);
+  }
+  const list=document.createElement('div');list.className='eval-list';
+  const labels=document.createElement('div');labels.className='eval-head';labels.innerHTML='<span>Actividad</span><span style="text-align:center">Porcentaje</span><span style="text-align:center">Nota</span><span></span>';list.append(labels);
+  c.evals.forEach((ev,i)=>{
+   const row=document.createElement('div');row.className='eval';
+   const nm=document.createElement('input');nm.className='grade-input';nm.type='text';nm.maxLength=35;nm.value=ev.name;nm.title='Nombre de la actividad';nm.setAttribute('aria-label','Actividad');
+   nm.onchange=()=>{ev.name=nm.value.trim()||`Nota ${i+1}`;save()};
+   const w=document.createElement('input');w.className='grade-input';w.type='number';w.min='0';w.max='100';w.step='.1';w.value=ev.weight;w.title='Porcentaje';w.setAttribute('aria-label','Porcentaje de '+ev.name);
+   w.onchange=()=>{const v=Number(w.value);if(w.value.trim()===''||v<0||v>100||!Number.isFinite(v)){w.value=ev.weight;return}ev.weight=v;save()};
+   const g=document.createElement('input');g.className='grade-input';g.type='number';g.min='0';g.max='5';g.step='.1';g.placeholder='—';g.value=ev.grade??'';g.title='Nota';g.setAttribute('aria-label','Nota de '+ev.name);
+   g.onchange=()=>{if(g.value.trim()===''){ev.grade=null;save();return}const v=Number(g.value);if(v<0||v>5||!Number.isFinite(v)){g.value=ev.grade??'';toast('La nota debe estar entre 0 y 5');return}ev.grade=v;save()};
+   const del=document.createElement('button');del.type='button';del.textContent='×';del.title='Eliminar actividad';del.onclick=()=>{if(confirm('¿Eliminar esta actividad?')){c.evals.splice(i,1);save()}};
+   row.append(nm,w,g,del);list.append(row);
+  });
+  card.append(list);
+  const actions=document.createElement('div');actions.className='course-actions';
+  const add=document.createElement('button');add.className='btn secondary';add.textContent='+ Agregar actividad';add.onclick=()=>{c.evals.push({name:`Actividad ${c.evals.length+1}`,weight:0,grade:null});save()};
+  const rename=document.createElement('button');rename.className='btn ghost';rename.textContent='Renombrar';rename.onclick=()=>{const v=prompt('Nombre de la materia',c.name);if(v&&v.trim()){c.name=v.trim();save()}};
+  const delCourse=document.createElement('button');delCourse.className='btn ghost';delCourse.textContent='Eliminar';delCourse.onclick=()=>{if(confirm(`¿Eliminar ${c.name}?`)){courses=courses.filter(x=>x.id!==c.id);save()}};
+  actions.append(add,rename,delCourse);card.append(actions);
+  const sim=document.createElement('div');sim.className='simulator';
+  const sh=document.createElement('div');sh.className='sim-head';sh.innerHTML='<b>Calcula las notas para tu objetivo</b>';
+  const controls=document.createElement('div');controls.className='sim-grid';
+  const targetLabel=document.createElement('label');targetLabel.textContent='Nota definitiva que quieres alcanzar';
+  const targetInput=document.createElement('input');targetInput.type='number';targetInput.min='0';targetInput.max='5';targetInput.step='.1';targetInput.value='3.0';targetInput.setAttribute('aria-label','Nota definitiva deseada');targetLabel.append(targetInput);controls.append(targetLabel);
+  const msg=document.createElement('p');
+  const comboTitle=document.createElement('div');comboTitle.style.cssText='font-size:12px;font-weight:800;margin-top:14px';comboTitle.textContent='Notas que necesitas en las actividades pendientes';
+  const comboBox=document.createElement('div');
+  const updateTarget=()=>{
+   const raw=targetInput.value.trim();const desired=Number(raw);
+   if(raw===''||!Number.isFinite(desired)||desired<0||desired>5){msg.className='sim-warning';msg.textContent='Ingresa una nota válida entre 0,0 y 5,0.';comboBox.innerHTML='';return}
+   if(desired<3){msg.className='sim-warning';msg.textContent='Nota por debajo de la necesaria, no te conformes con menos.';comboBox.innerHTML='';return}
+   msg.className='';msg.textContent=`Tu objetivo es ${fmt(desired)}. Estas son algunas combinaciones posibles:`;
+   comboBox.innerHTML=combinationRows(c,desired);
+  };
+  targetInput.addEventListener('input',updateTarget);updateTarget();
+  sim.append(sh,controls,msg,comboTitle,comboBox);card.append(sim);
+  if(!hasDefinitive&&c.evals.length>0&&c.evals.every(e=>e.grade!==null)&&Math.abs(totalWeight-100)>=0.01){
+   const warning=document.createElement('p');warning.className='hint';warning.style.color='var(--yellow)';warning.textContent=`Aún no se puede calcular la definitiva: los porcentajes deben sumar 100% (actualmente ${fmt(totalWeight)}%).`;card.insertBefore(warning,list);
+  }
+  root.append(card);
+ });
+ document.getElementById('statCourses').textContent=courses.length;
+ document.getElementById('statDone').textContent=done;
+ document.getElementById('statAvg').textContent=weight?fmt(weighted/(weight/100)):'—';
+ document.getElementById('courseCount').textContent=`${courses.length} ${courses.length===1?'materia':'materias'}`;
+ if(!courses.length)root.innerHTML='<div class="empty"><b>Aún no tienes materias</b>Crea tu primera materia para comenzar a registrar tus notas.</div>';
+}
+document.getElementById('exportBtn').onclick=()=>{
+ const payload={app:'GradeLab',version:1,exportedAt:new Date().toISOString(),courses};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='gradelab-mis-notas.json';a.click();URL.revokeObjectURL(url);toast('Archivo exportado');
+};
+document.getElementById('importFile').addEventListener('change',async e=>{
+ const file=e.target.files[0];if(!file)return;
+ try{
+  const data=JSON.parse(await file.text());const incoming=Array.isArray(data)?data:data.courses;
+  if(!Array.isArray(incoming)||!incoming.every(c=>c&&typeof c.name==='string'&&Array.isArray(c.evals)))throw new Error('Formato inválido');
+  const clean=incoming.map(c=>({id:uid(),name:c.name.slice(0,45),target:3,evals:c.evals.map((v,i)=>({name:String(v.name||`Evaluación ${i+1}`).slice(0,45),weight:Math.max(0,Math.min(100,Number(v.weight)||0)),grade:v.grade===null||v.grade===''?null:Math.max(0,Math.min(5,Number(v.grade)))}))}));
+  if(!confirm(`Se importarán ${clean.length} materias. ¿Quieres reemplazar tus materias actuales?`))return;
+  courses=clean;save();toast('Materias importadas correctamente');
+ }catch(err){alert('No se pudo importar el archivo. Verifica que sea una exportación válida de GradeLab.')}
+ e.target.value='';
+});
+render();
+</script>
+</body>
+</html>
